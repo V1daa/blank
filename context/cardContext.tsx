@@ -1,12 +1,12 @@
 //@ts-nocheck
-'use client'
+"use client";
 import { createContext, useEffect, useState } from "react";
 
 export const CardContext = createContext(null);
 
 interface ShopInterface {
-    addToCard: () => void;
-    num: number;
+  addToCard: () => void;
+  num: number;
 }
 
 const ShopContextProvider = (props: React.ReactNode) => {
@@ -14,9 +14,11 @@ const ShopContextProvider = (props: React.ReactNode) => {
 
   useEffect(() => {
     let arr = JSON.parse(localStorage.getItem("cardItems") as string);
-    setNum(arr.length)
-
-  },[])
+    if (arr) {
+      setNum(arr.length);
+    } else {
+    }
+  }, []);
 
   const addToCard = () => {
     let arr = JSON.parse(localStorage.getItem("cardItems") as string);
