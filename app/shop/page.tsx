@@ -6,15 +6,8 @@ import { useEffect, useState } from "react";
 import { getFirebaseStorageUrl } from "@/lib/firebaseUtils";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { LoaderCircle } from "lucide-react";
+import { CardProps } from "@/types/types";
 
-interface CardProps {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  image: string;
-  category: string;
-}
 
 export default function Shop() {
   const [loading, setLoading] = useState(true);
@@ -26,7 +19,7 @@ export default function Shop() {
     const imagesData = querySnapshot.docs.map((doc) => {
       const data = doc.data();
       return {
-        id: doc.id,
+        id: data.id,
         title: data.title,
         image: getFirebaseStorageUrl(data.image),
         price: data.price,
@@ -43,6 +36,9 @@ export default function Shop() {
       const data = await fetchImagesData();
       setImages(data);
     };
+    if (!localStorage.getItem("cardItems")) {
+      localStorage.setItem("cardItems", JSON.stringify([]));
+    }
 
     getImages();
     setLoading(false);
@@ -91,6 +87,7 @@ export default function Shop() {
               description={item.description}
               price={item.price}
               image={item.image}
+              category={item.category}
             />
           ))
         )}

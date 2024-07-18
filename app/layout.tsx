@@ -4,6 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import ShopContextProvider from "@/context/cardContext";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -19,16 +21,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {/*@ts-ignore*/}
+      <ShopContextProvider>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}
-      >
+        >
         <NavBar />
         {children}
+        <Toaster />
         <Footer />
       </body>
+        </ShopContextProvider>
     </html>
   );
 }

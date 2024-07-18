@@ -1,16 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { useToast } from "@/components/ui/use-toast";
 import { db, storage } from "@/firebase/db";
-import firebase from "firebase/compat/app";
 import { addDoc, collection } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 import { ArrowUpFromLine, ChevronDown } from "lucide-react";
@@ -31,6 +22,7 @@ export default function AddProduct() {
   const [icon, setIcon] = useState<string | null>();
   const [formValues, setFormValues] = useState(initialValues);
   const [image, setImage] = useState<File | undefined>(undefined);
+  const { toast } = useToast();
 
   const handleChange = (e: any) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -53,9 +45,18 @@ export default function AddProduct() {
       let storageRef = ref(storage, imageUrl);
       //@ts-ignore
       uploadBytes(storageRef, image);
-      alert("Uploaded successful");
+      toast({
+        title: "Item added",
+        description: `Good work`,
+      });
+      setFormValues(initialValues);
+      setIcon(undefined);
     } catch (error) {
-      alert(error);
+      toast({
+        title: "Error while adding an item",
+        variant: "destructive",
+        description: "Summon Dimasik the programmer",
+      });
     }
   };
 

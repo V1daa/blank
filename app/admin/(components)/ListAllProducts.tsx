@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import { db } from "@/firebase/db";
 import {
   deleteDocumentFromFirestore,
@@ -21,6 +22,7 @@ interface CardProps {
 export default function ListAllProducts() {
   const [active, setActive] = useState(false);
   const [images, setImages] = useState<CardProps[]>([]);
+  const { toast } = useToast();
 
   const fetchImagesData = async () => {
     const querySnapshot = await getDocs(collection(db, "products"));
@@ -44,7 +46,11 @@ export default function ListAllProducts() {
   ): Promise<void> => {
     await deleteFileFromStorage(url);
     await deleteDocumentFromFirestore(collection, documentId);
-    location.reload();
+    images.filter((item) => item.id !== documentId);
+    toast({
+      title: "Item deleted",
+      description: "Good work",
+    });
   };
 
   useEffect(() => {
