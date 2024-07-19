@@ -57,8 +57,8 @@ export default function Shop() {
     );
   }
   return (
-    <div className="w-screen h-auto flex justify-center gap-20 p-20 overflow-scroll">
-      <div className="trans w-[300px] h-auto sticky top-10 p-5 flex flex-col gap-4">
+    <div className="w-screen h-auto flex justify-center gap-20 p-20 overflow-scroll max-[780px]:flex-col max-[468px]:p-12 max-[400px]:p-8">
+      <div className="trans w-[300px] h-[430px] sticky top-10 p-5 flex flex-col gap-4">
         <h1>Select a category</h1>
         <div className="flex gap-3 items-center">
           <RadioGroup

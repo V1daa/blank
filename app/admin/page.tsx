@@ -15,8 +15,8 @@ export default function Admin() {
   }, []);
 
   return (
-    <div className="w-screen h-full flex items-center justify-center p-20">
-      <div className="w-full h-full trans overflow-scroll rounded-md p-10 flex flex-col gap-10">
+    <div className="w-screen h-full flex items-center justify-center p-20 max-[700px]:p-0">
+      <div className="w-full h-full trans overflow-scroll rounded-md p-10 flex flex-col gap-10 max-[430px]:p-0">
         <AddProduct />
         <ListAllProducts />
       </div>

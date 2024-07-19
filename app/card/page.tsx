@@ -46,8 +46,8 @@ export default function Card() {
 
   return (
     <div className="w-full h-[87vh] flex items-center justify-center">
-      <div className="w-[80%] h-[90%] trans overflow-scroll p-10 flex flex-col items-center justify-end">
-        <div className="w-full h-5/6 overflow-scroll p-10 flex gap-10 flex-wrap">
+      <div className="w-[80%] h-[90%] trans overflow-scroll p-10 flex flex-col items-center justify-center max-[476px]:p-0 max-[476px]:w-full">
+        <div className="w-full h-5/6 overflow-scroll p-10 flex gap-10 flex-wrap max-[570px]:p-0">
           {images.map((image, index) => (
             <Item
               key={index}
