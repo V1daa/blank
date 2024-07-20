@@ -9,6 +9,7 @@ import { CardProps } from "@/types/types";
 
 export default function Card() {
   const [images, setImages] = useState<CardProps[]>([]);
+  const [total, setTotal] = useState(0)
 
   const fetchImagesData = async () => {
     const itemsArray = JSON.parse(localStorage.getItem("cardItems") as string);
@@ -42,7 +43,12 @@ export default function Card() {
     };
 
     getImages();
-  }, []);
+    setTotal(images.reduce((total, item) => total + +item.price, 0))
+  }, [images]);
+
+  const handleBuy = () => {
+    alert(`Congraz you were scammed for: ${total} dollars`)
+  }
 
   return (
     <div className="w-full h-[87vh] flex items-center justify-center">
@@ -64,12 +70,10 @@ export default function Card() {
         <div className="w-full h-1/6 flex items-center justify-between">
           <h1>
             <strong>Total:</strong>{" "}
-            {images.reduce((total, item) => total + +item.price, 0)} zł.
+            {total} zł.
           </h1>
           <Button
-            onClick={() => {
-              console.log(images);
-            }}
+            onClick={handleBuy}
           >
             Purchase
           </Button>
